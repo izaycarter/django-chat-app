@@ -1,0 +1,21 @@
+{% extends "chats/base.html"%}
+
+{% block content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <a href="{% url 'chats:room_list' %}">Home</a>
+            <h5 class="card-title">{{object.name}}</h5>
+
+            <form method="post" action="{% url 'chats:request_comment' object.id %}">
+                {% csrf_token %}
+                <input type="text" name="text" />
+                <button class="btn">Add Comment</button>
+            </form>
+        </div>
+        {% for comment in object.comment_set.all %}
+            {{ comment.text }}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends "chats/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form data-parsley-validate method="post" action="{%  url 'chats:create' %}">
+{% csrf_token %}
+{{ form | crispy }}
+<button class="btn btn-link">Create Chat-Room</button>
+
+{% endblock content %}

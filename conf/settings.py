@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j^0d^c&rax=*sp1bt=yulz79dsq9%&%z_a8u9^4mdatc%t$xe%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["enigmatic-ridge-25462.herokuapp.com","127.0.0.1"]
 
@@ -39,8 +39,13 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 
+    #third party
+    "parsley",
+    "crispy_forms",
+
     #local
     "accounts.apps.AccountsConfig",
+    "chats.apps.ChatsConfig",
 ]
 
 MIDDLEWARE = [
@@ -78,12 +83,17 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database.url.config(default=os.environ['DATABASE_URL']),
+    }
 
 
 # Password validation
