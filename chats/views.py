@@ -21,10 +21,19 @@ class RoomDetailView(generic.DetailView):
     template_name = "chats/room_detail.html"
 
 
-    def request_comment(request, pk):
-        comment = Comment()
-        comment.text = request.POST['text']
-        comment.room_id = pk
-        comment.save()
+    # def request_comment(request, pk):
+    #     comment = Comment()
+    #     comment.text = request.POST['text']
+    #     comment.room_id = pk
+    #     comment.save()
+    #
+    #     return HttpResponseRedirect(reverse('chats:detail', args=(pk,)))
 
-        return HttpResponseRedirect(reverse('chats:detail', args=(pk,)))
+class CommentCreateView(generic.CreateView):
+    model = Comment
+    fields = ('text',)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.room_id = self.kwargs['pk']
+        return super().form_valid(form)

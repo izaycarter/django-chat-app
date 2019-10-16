@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    {{object.user}}
+</div>
+<div>
+    {{object.bio}}
+</div>
+<div>
+    {{object.location}}
+</div>
+<img src="{{ object.avatar.url }}" alt="{{ avatar.user }}">
+{% endblock content %}

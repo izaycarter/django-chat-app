@@ -6,7 +6,7 @@ User = get_user_model()
 
 class Room(models.Model):
     name = models.CharField(max_length=255)
-    member = models.ManyToManyField( User ,related_name="rooms")
+    member = models.ManyToManyField(User, related_name="rooms")
 
     def __str__(self):
         return self.name
@@ -18,8 +18,12 @@ class Room(models.Model):
 
 
 class Comment(models.Model):
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
     text = models.TextField( max_length=500)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
+
+    def get_absolute_url(self):
+        return reverse("chats:detail", args=(self.room.id,))
