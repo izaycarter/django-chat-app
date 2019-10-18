@@ -14,7 +14,10 @@
             </form>
         </div>
         {% for comment in room.comment_set.all %}
-            {{ comment.text }}
+            <div>
+                {{ comment.text }}
+                <a href="{% url 'chats:delete_comment' comment.id %}">Delete</a>
+            </div>
         {% endfor %}
     </div>
 </div>

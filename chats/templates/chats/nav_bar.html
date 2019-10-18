@@ -1,0 +1,15 @@
+
+
+<section>
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'accounts:signup' %}">Sign up</a>
+    <a href="{% url 'chats:room_list'%}">Chat-list</a>
+    {% else %}
+    <a href="{% url 'accounts:details' %}">My Account</a>
+    <a href="{% url 'chats:my_room_list' %}">My Rooms</a>
+    <a href="{% url 'chats:room_list'%}">Chat-list</a>
+    <a href="{% url 'chats:create' %}">Create Chat-Room</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    {% endif %}
+</section>

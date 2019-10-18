@@ -1,6 +1,7 @@
-{% extends "base.html" %}
+{% extends "chats/base.html" %}
 
 {% block content %}
+<a href="{% url 'accounts:update_profile' object.id %}">update profile</a>
 <div>
     {{object.user}}
 </div>
